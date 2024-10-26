@@ -1,0 +1,80 @@
+﻿@using Havit.ViewModels
+@model RegisterVM
+@{
+ViewData["Title"] = "Register";
+}
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4 card p-3" style="background-color: #cd91c4;">
+        <h2 class="text-center text-info">Register</h2>
+        <form asp-action="Register" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-1">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" id="passwordInput" oninput="checkPasswordRequirements()" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="my-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="specialCharCheck" disabled>
+                    <label class="form-check-label" for="specialCharCheck">
+                        Password has at least 1 special character
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="lengthCheck" disabled>
+                    <label class="form-check-label" for="lengthCheck">
+                        Password is at least 8 characters long
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="numberCheck" disabled>
+                    <label class="form-check-label" for="numberCheck">
+                        Password has at least 1 number in it
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-check">
+                    <input asp-for="AgreedToTos" class="form-check-input" />
+                    <label class="form-check-label">
+                        You agree with the <a href="#">TOS</a>
+                    </label>
+                </div>
+                <span asp-validation-for="AgreedToTos" class="text-danger d-block"></span>
+            </div>
+            <div class="mb-1">
+                <div class="d-flex flex-column align-items-center gap-2">
+                    <input type="submit" value="Register" class="btn btn-primary btn-sm"/>
+                    <a asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-decoration-none float-start mt-2">Have account?</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+@{
+await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script>
+    function checkPasswordRequirements() {
+        const password = document.getElementById('passwordInput').value;
+        const hasSpecialChar = /[!@@#$%^&*(),.?":{}|<>]/.test(password);
+        document.getElementById('specialCharCheck').checked = hasSpecialChar;
+        const hasMinLength = password.length >= 8;
+        document.getElementById('lengthCheck').checked = hasMinLength;
+        const hasNumber = /\d/.test(password);
+        document.getElementById('numberCheck').checked = hasNumber;
+    }
+</script>
+}

@@ -1,0 +1,201 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.container-fluid {
+  padding: 0 !important;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-secondary {
+  --bs-btn-bg: #cd91c4;
+  --bs-btn-border-color: #cd91c4;
+}
+
+.nav-link {
+  padding: 1px 0 1px 2px;
+}
+
+.navbar {
+  position: relative;
+  min-height: 60px;
+}
+
+.navbar .container-fluid {
+  position: static;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 2;
+}
+
+.navbar .container-fluid {
+  justify-content: space-between;
+}
+
+.nav-left {
+  margin-right: auto;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+.navbar-collapse {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  padding: 0.5rem 0.5rem;
+}
+
+.navbar-collapse a {
+  float: right;
+  margin-top: 0.6vh;
+}
+
+.Login-form {
+  padding: 2vh 2vw 2vh 2vw;
+  background-color: blueviolet;
+}
+
+.RegisterText {
+  margin-top: 1vh;
+}
+
+.video-background {
+  min-width: 100vw;
+  min-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  position: relative;
+}
+
+#ContactUs {
+  margin-right: 1vw;
+}
+
+@media (max-width: 625px) {
+  .container {
+    max-width: 540px; !important
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 741px; !important
+  }
+}
+
+@media (max-width: 425px) {
+  .nav-brand img {
+    height: 30px;
+  }
+}
+
+@media (min-width: 576px) {
+  .navbar-collapse {
+    position: static;
+    background: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar-toggler {
+    margin-left: auto;
+  }
+
+  .navbar-collapse {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  #DropDownBtn {
+    padding-left: 0;
+    width: 30vw;
+  }
+  #ContactUs {
+    margin: 0;
+  }
+  #LoginBtn {
+    margin-top: 1.5vh;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 425px) {
+  .navbar-brand {
+    top: 0.5vh;
+  }
+}
+ 
+@media (max-width: 576px) and (orientation: portrait) {
+  .video-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+
+@media (max-width: 576px) and (orientation: landscape) {
+  .video-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 577px) {
+  .video-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
