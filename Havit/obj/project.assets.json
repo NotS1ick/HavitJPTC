@@ -4892,11 +4892,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\unity\\KebabClicker\\Havit\\HavitProject\\Havit.csproj",
+      "projectUniqueName": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\Havit.csproj",
       "projectName": "Havit",
-      "projectPath": "D:\\unity\\KebabClicker\\Havit\\HavitProject\\Havit.csproj",
+      "projectPath": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\Havit.csproj",
       "packagesPath": "C:\\Users\\Mareks\\.nuget\\packages\\",
-      "outputPath": "D:\\unity\\KebabClicker\\Havit\\HavitProject\\obj\\",
+      "outputPath": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

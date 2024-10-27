@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "J7nZbucE/YU=",
+  "dgSpecHash": "uu1RVVUdEH8=",
   "success": true,
-  "projectFilePath": "D:\\unity\\KebabClicker\\Havit\\HavitProject\\Havit.csproj",
+  "projectFilePath": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\Havit.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mareks\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Mareks\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
