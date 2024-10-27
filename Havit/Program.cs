@@ -16,12 +16,10 @@ bool isStaticWebApp = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("
 if (isStaticWebApp)
 {
     // For Static Web Apps, use Azure Storage or Cosmos DB
-    // You'll need to add the appropriate connection string in your Static Web Apps configuration
     var staticWebAppsConnectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
     
-    // TODO: Replace with your chosen storage solution
-    // Example with Azure Storage:
-    // builder.Services.AddSingleton<IFileProvider>(new AzureStorageFileProvider(staticWebAppsConnectionString));
+    // Configure for Static Web Apps
+    builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 }
 else
 {
@@ -31,8 +29,14 @@ else
         options.UseSqlServer(connectionString));
 }
 
-// Add MVC services
-builder.Services.AddControllersWithViews();
+// Add MVC services with specific options for Static Web Apps
+builder.Services.AddControllersWithViews(options =>
+{
+    // Configure options for static rendering
+    options.UseDateOnlyTimeOnlyStringConverters();
+});
+
+// Add Razor Pages support
 builder.Services.AddRazorPages();
 
 // Configure Identity
@@ -56,28 +60,14 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    
+    // Set login path to work with Static Web Apps
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
 var app = builder.Build();
-
-// Database migrations only for local development
-if (!isStaticWebApp)
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<AppDbContext>();
-            context.Database.Migrate();
-        }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred while migrating the database.");
-        }
-    }
-}
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
@@ -102,12 +92,16 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseStaticFiles();
 
 // Configure routes
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Add support for Razor Pages
 app.MapRazorPages();
+
+// Add endpoint for health checks
+app.MapGet("/health", () => "Healthy");
 
 app.Run();
