@@ -22,12 +22,14 @@
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html",
+    "rewrite": "/.auth/login/aad",
     "exclude": [
       "/images/*.{png,jpg,gif}",
       "/css/*",
       "/js/*",
-      "/api/*"
+      "/lib/*",
+      "/api/*",
+      "/.auth/*"
     ]
   },
   "mimeTypes": {
@@ -38,5 +40,24 @@
       "redirect": "/Account/Login",
       "statusCode": 302
     }
+  },
+  "platform": {
+    "apiRuntime": "dotnet:8.0"
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/",
+          "clientIdSettingName": "AZURE_CLIENT_ID",
+          "clientSecretSettingName": "AZURE_CLIENT_SECRET"
+        }
+      }
+    }
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-cache",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block"
   }
 }
