@@ -23,9 +23,9 @@ jobs:
           
       - name: Build
         run: |
-          dotnet restore
-          dotnet build --configuration Release
-          dotnet publish --configuration Release --output ./published_app
+          dotnet restore ./Havit/Havit.csproj
+          dotnet build ./Havit/Havit.csproj --configuration Release
+          dotnet publish ./Havit/Havit.csproj --configuration Release --output ./published_app
           
       - name: Build And Deploy
         id: builddeploy
