@@ -1,7 +1,11 @@
-using Havit.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using Havit.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,16 +46,16 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
-    
-    // Add cookie settings for Static Web Apps
-    options.Cookies.ApplicationCookie.Cookie.SameSite = SameSiteMode.Strict;
-    options.Cookies.ApplicationCookie.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 })
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-// Add Static Web Apps specific services
-builder.Services.AddAzureStaticWebApps();
+// Configure cookie settings
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
 
 var app = builder.Build();
 
@@ -98,15 +102,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Add Static Web Apps middleware
-app.UseStaticWebApps();
-
 // Configure routes
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Handle SPA fallback for Static Web Apps
-app.MapFallbackToFile("index.html");
+// Handle SPA fallback
+if (isStaticWebApp)
+{
+    app.MapFallbackToFile("index.html");
+}
 
 app.Run();
