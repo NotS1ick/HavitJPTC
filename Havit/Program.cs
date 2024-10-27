@@ -108,10 +108,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Handle SPA fallback
-if (isStaticWebApp)
-{
-    app.MapFallbackToFile("index.cshtml");
-}
 
 app.Run();
