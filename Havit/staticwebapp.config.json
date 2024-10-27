@@ -8,28 +8,42 @@
     {
       "route": "/Account/*",
       "methods": ["GET", "POST"],
-      "allowedRoles": ["anonymous", "authenticated"]
+      "allowedRoles": ["anonymous", "authenticated"],
+      "rewrite": "/Account/{0}"
     },
     {
       "route": "/Identity/*",
       "methods": ["GET", "POST"],
-      "allowedRoles": ["anonymous", "authenticated"]
+      "allowedRoles": ["anonymous", "authenticated"],
+      "rewrite": "/Identity/{0}"
+    },
+    {
+      "route": "/Home/*",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous", "authenticated"],
+      "rewrite": "/Home/{0}"
+    },
+    {
+      "route": "/HabitTracker/*",
+      "methods": ["GET"],
+      "allowedRoles": ["authenticated"],
+      "rewrite": "/HabitTracker/{0}"
     },
     {
       "route": "/*",
       "methods": ["GET"],
-      "allowedRoles": ["anonymous", "authenticated"]
+      "allowedRoles": ["anonymous", "authenticated"],
+      "rewrite": "/Home/Index"
     }
   ],
   "navigationFallback": {
-    "rewrite": "/.auth/login/aad",
+    "rewrite": "/Home/Index",
     "exclude": [
       "/images/*.{png,jpg,gif}",
       "/css/*",
       "/js/*",
-      "/lib/*",
       "/api/*",
-      "/.auth/*"
+      "/.well-known/*"
     ]
   },
   "mimeTypes": {
@@ -41,23 +55,7 @@
       "statusCode": 302
     }
   },
-  "platform": {
-    "apiRuntime": "dotnet:8.0"
-  },
-  "auth": {
-    "identityProviders": {
-      "azureActiveDirectory": {
-        "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com/",
-          "clientIdSettingName": "AZURE_CLIENT_ID",
-          "clientSecretSettingName": "AZURE_CLIENT_SECRET"
-        }
-      }
-    }
-  },
   "globalHeaders": {
-    "Cache-Control": "no-cache",
-    "X-Frame-Options": "SAMEORIGIN",
-    "X-XSS-Protection": "1; mode=block"
+    "content-security-policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; connect-src 'self' https://*.azurestaticapps.net;"
   }
 }
