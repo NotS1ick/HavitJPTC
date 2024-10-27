@@ -21,6 +21,14 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
+      - name: Handle Missing Token
+        if: failure() && steps.builddeploy.outcome == 'failure'
+        run: |
+          if [[ -z "${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}" ]]; then
+            echo "::error::Azure Static Web Apps API token is missing. Please add it to your repository secrets."
+            exit 1
+          fi
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -36,11 +44,3 @@ jobs:
         env:
           DOTNET_ROOT: /usr/share/dotnet
           
-      # Add this if you want to handle the case when the token is missing
-      - name: Handle Missing Token
-        if: failure() && steps.builddeploy.outcome == 'failure'
-        run: |
-          if [[ -z "${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}" ]]; then
-            echo "::error::Azure Static Web Apps API token is missing. Please add it to your repository secrets."
-            exit 1
-          fi
