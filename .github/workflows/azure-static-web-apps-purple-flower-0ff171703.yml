@@ -16,11 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.0.x'
-
       - name: Handle Missing Token
         if: failure() && steps.builddeploy.outcome == 'failure'
         run: |
@@ -28,6 +23,12 @@ jobs:
             echo "::error::Azure Static Web Apps API token is missing. Please add it to your repository secrets."
             exit 1
           fi
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
 
       - name: Build And Deploy
         id: builddeploy
