@@ -111,7 +111,7 @@ app.MapControllerRoute(
 // Handle SPA fallback
 if (isStaticWebApp)
 {
-    app.MapFallbackToFile("index.html");
+    app.MapFallbackToFile("index.cshtml");
 }
 
 app.Run();
