@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Havit.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
 // Determine if we're running in Azure Static Web Apps
 bool isStaticWebApp = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID"));
