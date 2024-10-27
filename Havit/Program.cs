@@ -33,6 +33,7 @@ else
 
 // Add MVC services
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 // Configure Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -107,6 +108,6 @@ app.UseStaticFiles();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapRazorPages();
 
 app.Run();
