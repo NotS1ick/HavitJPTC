@@ -101,6 +101,7 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 // Configure routes
 app.MapControllerRoute(
