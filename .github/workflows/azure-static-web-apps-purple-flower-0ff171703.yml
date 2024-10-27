@@ -29,9 +29,12 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "Havit"
-          app_artifact_location: "bin/Release/net8.0/publish/wwwroot"
+          app_artifact_location: "wwwroot"  # Changed this line
           output_location: ""
-          app_build_command: "dotnet publish -c Release"
+          skip_app_build: true  # Added this line
+          app_build_command: |  # Modified build command
+            dotnet publish -c Release
+            cp -R bin/Release/net8.0/publish/wwwroot/* wwwroot/
           api_location: "Api"
         env:
           DOTNET_ROOT: /usr/share/dotnet
