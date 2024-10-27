@@ -1,4 +1,5 @@
 name: Azure Static Web Apps CI/CD
+
 on:
   push:
     branches:
@@ -9,36 +10,26 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build_and_deploy_job:
     runs-on: ubuntu-latest
-    name: Build and Deploy
+    name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v3
-
-      - name: Handle Missing Token
-        if: failure() && steps.builddeploy.outcome == 'failure'
-        run: |
-          if [[ -z "${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}" ]]; then
-            echo "::error::Azure Static Web Apps API token is missing. Please add it to your repository secrets."
-            exit 1
-          fi
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '8.0.x'
 
       - name: Build And Deploy
-        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "Havit"
-          output_location: "wwwroot"
+          output_location: ""
           app_build_command: "dotnet publish -c Release"
           api_location: "Api"
-          skip_app_build: false
         env:
           DOTNET_ROOT: /usr/share/dotnet
