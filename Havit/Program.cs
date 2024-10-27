@@ -29,12 +29,8 @@ else
         options.UseSqlServer(connectionString));
 }
 
-// Add MVC services with specific options for Static Web Apps
-builder.Services.AddControllersWithViews(options =>
-{
-    // Configure options for static rendering
-    options.UseDateOnlyTimeOnlyStringConverters();
-});
+// Add MVC services
+builder.Services.AddControllersWithViews();
 
 // Add Razor Pages support
 builder.Services.AddRazorPages();
@@ -102,6 +98,6 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 // Add endpoint for health checks
-app.MapGet("/health", () => "Healthy");
+app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.Run();
