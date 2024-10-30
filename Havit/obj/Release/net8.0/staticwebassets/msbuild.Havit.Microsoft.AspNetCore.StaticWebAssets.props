@@ -4,7 +4,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>css/site.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -22,7 +22,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>favicon.ico</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -36,29 +36,47 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Havit.n8yy93e6q9.bundle.scp.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Havit.psmvrsiya3.bundle.scp.css'))">
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
-      <RelativePath>Havit.n8yy93e6q9.bundle.scp.css</RelativePath>
+      <BasePath>/</BasePath>
+      <RelativePath>Havit.psmvrsiya3.bundle.scp.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>Reference</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ProjectBundle</AssetTraitValue>
-      <Fingerprint>n8yy93e6q9</Fingerprint>
-      <Integrity>KSnqTFqqTYy3k3g0n55mK7+v+FSfdHWDmqevKIc6zHw=</Integrity>
+      <Fingerprint>psmvrsiya3</Fingerprint>
+      <Integrity>KRAedRP7Mwwow/Fv4/k+ir2vyZp2OmNnpNfVUsclXyQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Havit.n8yy93e6q9.bundle.scp.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Havit.psmvrsiya3.bundle.scp.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Havit</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>/</BasePath>
+      <RelativePath>index.html</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>yvxwj09q0z</Fingerprint>
+      <Integrity>col7xK3BOaeaggEwvxl54liwhmbxR85+ccxmgmtrTBc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))">
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>js/site.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -76,7 +94,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -94,7 +112,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -112,7 +130,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -130,7 +148,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -148,7 +166,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -166,7 +184,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -184,7 +202,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -202,7 +220,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -220,7 +238,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -238,7 +256,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -256,7 +274,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -274,7 +292,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -292,7 +310,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -310,7 +328,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -328,7 +346,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -346,7 +364,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -364,7 +382,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -382,7 +400,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -400,7 +418,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -418,7 +436,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -436,7 +454,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -454,7 +472,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -472,7 +490,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -490,7 +508,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -508,7 +526,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -526,7 +544,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -544,7 +562,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -562,7 +580,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -580,7 +598,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -598,7 +616,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -616,7 +634,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.min.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -634,7 +652,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.min.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -652,7 +670,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -670,7 +688,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -688,7 +706,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -706,7 +724,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -724,7 +742,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.min.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -742,7 +760,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -760,7 +778,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -778,7 +796,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -796,7 +814,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.min.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -814,7 +832,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -832,7 +850,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -850,7 +868,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/dist/js/bootstrap.min.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -868,7 +886,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/bootstrap/LICENSE</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -886,7 +904,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -904,7 +922,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -922,7 +940,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation-unobtrusive/LICENSE.txt</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -940,7 +958,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation/dist/additional-methods.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -958,7 +976,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation/dist/additional-methods.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -976,7 +994,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation/dist/jquery.validate.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -994,7 +1012,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation/dist/jquery.validate.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1012,7 +1030,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery-validation/LICENSE.md</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1030,7 +1048,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/dist/jquery.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1048,7 +1066,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/dist/jquery.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1066,7 +1084,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/dist/jquery.min.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1084,7 +1102,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/dist/jquery.slim.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1102,7 +1120,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/dist/jquery.slim.min.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1120,7 +1138,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/dist/jquery.slim.min.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1138,7 +1156,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>lib/jquery/LICENSE.txt</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1156,7 +1174,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>logo100x24.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1174,7 +1192,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>logo154x48.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
@@ -1192,7 +1210,7 @@
       <SourceType>Package</SourceType>
       <SourceId>Havit</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Havit</BasePath>
+      <BasePath>/</BasePath>
       <RelativePath>movie.mp4</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>

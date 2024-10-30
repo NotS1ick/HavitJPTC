@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\Havit.bundle.scp.css",
-      "PackagePath": "staticwebassets\\Havit.n8yy93e6q9.bundle.scp.css"
+      "PackagePath": "staticwebassets\\Havit.psmvrsiya3.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\css\\site.css",
@@ -11,6 +11,10 @@
     {
       "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
     },
     {
       "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\site.js",
