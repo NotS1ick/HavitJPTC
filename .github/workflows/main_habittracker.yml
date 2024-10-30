@@ -22,16 +22,16 @@ jobs:
         run: dotnet build ./Havit/Havit.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./Havit/Havit.csproj -c Release -o ${{ github.workspace }}/myapp
+        run: dotnet publish ./Havit/Havit.csproj -c Release -o ${{ github.workspace }}/publish
 
       - name: List files after publish
-        run: dir ${{ github.workspace }}/myapp
+        run: dir ${{ github.workspace }}/publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{ github.workspace }}/myapp
+          path: ${{ github.workspace }}/publish
 
   deploy:
     runs-on: windows-latest
