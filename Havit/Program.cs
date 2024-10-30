@@ -10,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Statiq.App;
-using Statiq.Docs;
 
 var builder = WebApplication.CreateBuilder(args);
 
