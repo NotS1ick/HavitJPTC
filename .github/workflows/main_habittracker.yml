@@ -25,7 +25,7 @@ jobs:
         run: dotnet build ./Havit/Havit.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./Havit/Havit.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish ./Havit/Havit.csproj -c Release -o $${{ github.workspace }}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
