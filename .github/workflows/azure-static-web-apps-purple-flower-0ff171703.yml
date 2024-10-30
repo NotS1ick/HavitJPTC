@@ -34,7 +34,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "published_app/wwwroot"    # Location of static files after publishing
+          app_location: "publish/wwwroot"    # Location of static files after publishing
           output_location: ""                      # Leave empty as files are already in the right place
           api_location: "Api"                      # Location of your API project
           skip_app_build: true                     # Skip build as we've already built the app
