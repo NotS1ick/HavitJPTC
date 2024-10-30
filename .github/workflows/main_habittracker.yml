@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy ASP.Net Core app to Azure Web App - HabitTracker
 
 on:
@@ -19,19 +22,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build ./Havit/Havit.csproj --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./Havit/Havit.csproj -c Release -o ${{ github.workspace }}/publish
-
-      - name: List files after publish
-        run: dir ${{ github.workspace }}/publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{ github.workspace }}/publish
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -40,7 +40,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -48,15 +48,12 @@ jobs:
         with:
           name: .net-app
       
-      - name: List files after downloading artifact
-        run: dir ./publish
-
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DD67375509F14A04ABB361BCB11897EB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1978D181B74349B79CEF7E8B4F2A85B0 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E24D2785B83646C487E4D22A379948C6 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_88192BC05E364DC9AC50EFF938182548 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C8B0C45F7AB546228A7226A704D5B7F5 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9FE9DA1417C048F5B81C784FC1D1EC17 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -64,4 +61,5 @@ jobs:
         with:
           app-name: 'HabitTracker'
           slot-name: 'Production'
-          package: './publish'
+          package: .
+          
