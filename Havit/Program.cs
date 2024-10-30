@@ -1,104 +1,113 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
-using Havit.Models;
+using Havit.Services.Interfaces;
+using Havit.Services.Implementations;
+using Havit.Services.Utilities;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Statiq.App;
+using Statiq.Docs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Determine if we're running in Azure Static Web Apps
-bool isStaticWebApp = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID"));
-
-// Configure services based on environment
-if (isStaticWebApp)
+builder.Services.AddControllersWithViews(options =>
 {
-    // For Static Web Apps, use Azure Storage or Cosmos DB
-    // You'll need to add the appropriate connection string in your Static Web Apps configuration
-    var staticWebAppsConnectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
-    
-    // TODO: Replace with your chosen storage solution
-    // Example with Azure Storage:
-    // builder.Services.AddSingleton<IFileProvider>(new AzureStorageFileProvider(staticWebAppsConnectionString));
-}
-else
-{
-    // Local development - use SQL Server
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(connectionString));
-}
+    // Configure caching for static generation
+    options.Filters.Add(new ResponseCacheAttribute 
+    { 
+        Duration = 3600,
+        Location = ResponseCacheLocation.Any,
+        NoStore = false
+    });
+});
 
-// Add MVC services
-builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+builder.Services.AddSingleton<IUserStore, InMemoryUserStore>();
 
-// Configure Identity
-builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
 {
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-    
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 8;
-    options.Password.RequiredUniqueChars = 1;
-})
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
-
-// Configure cookie settings
-builder.Services.ConfigureApplicationCookie(options =>
-{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment() 
+        ? CookieSecurePolicy.SameAsRequest 
+        : CookieSecurePolicy.Always;
     options.Cookie.SameSite = SameSiteMode.Strict;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+        options.LogoutPath = "/Auth/Logout";
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+        options.Cookie.Name = "YourAppCookie";
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromHours(1);
+        options.SlidingExpiration = true;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment() 
+            ? CookieSecurePolicy.SameAsRequest 
+            : CookieSecurePolicy.Always;
+    });
+
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(365);
 });
 
 var app = builder.Build();
 
-// Database migrations only for local development
-if (!isStaticWebApp)
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<AppDbContext>();
-            context.Database.Migrate();
-        }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred while migrating the database.");
-        }
-    }
-}
-
 // Configure the HTTP request pipeline
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseHttpsRedirection();
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-
-// Configure static files with cache control
-app.UseStaticFiles(new StaticFileOptions
+app.Use(async (context, next) =>
 {
-    OnPrepareResponse = ctx =>
+    try
     {
-        // Cache static files for 1 year
-        ctx.Context.Response.Headers.Append(
-            "Cache-Control", "public,max-age=31536000");
+        await next.Invoke();
+    }
+    catch (Exception ex)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An unexpected error occurred.");
+        throw;
     }
 });
 
+// Security headers middleware
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+    context.Response.Headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+    context.Response.Headers.Add("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
+    
+    await next();
+});
+
+app.UseStaticFiles();
 app.UseRouting();
+
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -106,11 +115,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// Handle SPA fallback
-if (isStaticWebApp)
-{
-    app.MapFallbackToFile("index.html");
-}
 
 app.Run();

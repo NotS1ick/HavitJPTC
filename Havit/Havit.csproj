@@ -7,19 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.17" />
+      <PackageReference Include="Statiq.Web" Version="1.0.0-beta.60" />
+      <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+      <PackageReference Include="TerevintoSoftware.StaticSiteGenerator" Version="2.1.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -50,8 +48,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Views\Account\Login.cshtml" />
-      <AdditionalFiles Include="Views\Account\Register.cshtml" />
+      <AdditionalFiles Include="Views\Auth\Login.cshtml" />
+      <AdditionalFiles Include="Views\Auth\Register.cshtml" />
       <AdditionalFiles Include="Views\HabitTracker\Index.cshtml" />
       <AdditionalFiles Include="Views\Home\ContactUs.cshtml" />
       <AdditionalFiles Include="Views\Home\Index.cshtml" />

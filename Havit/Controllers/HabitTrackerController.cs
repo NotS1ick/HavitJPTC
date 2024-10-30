@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Havit.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace Havit.Controllers;
 
-[Authorize]
+[Authorize(Roles = "User,Admin")]
 public class HabitTrackerController : Controller
 {
     private readonly ILogger<HabitTrackerController> _logger;
@@ -17,6 +19,19 @@ public class HabitTrackerController : Controller
     
     public IActionResult Index()
     {
+        // Log user claims for debugging
+        foreach (var claim in User.Claims)
+        {
+            _logger.LogInformation($"Claim Type: {claim.Type}, Value: {claim.Value}");
+        }
+        
+        // Optional: Check if the user is in the required role
+        if (!User.IsInRole("User") && !User.IsInRole("Admin"))
+        {
+            _logger.LogWarning("User is not in the required role to access HabitTracker.");
+            return RedirectToAction("AccessDenied", "Auth");
+        }
+
         return View();
     }
     

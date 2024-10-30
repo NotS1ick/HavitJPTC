@@ -1,20 +1,18 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-﻿@using Microsoft.AspNetCore.Identity;
-@inject SignInManager<AppUser> signInManager
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 <ul class="navbar-nav">
-    @if (signInManager.IsSignedIn(User))
+    @if (User.Identity?.IsAuthenticated == true)
     {
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                @User.Identity!.Name!
+                @User.Identity.Name
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                 <li>
-                    <a class="dropdown-item text-white" asp-action="Logout" asp-controller="Account">
-                        Logout
-                    </a>
+                    <form method="post" asp-controller="Auth" asp-action="Logout" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="dropdown-item text-white btn btn-secondary" style="--bs-dropdown-link-hover-bg: gray; border-radius: 8px;">Logout</button>
+                    </form>
                 </li>
             </ul>
         </li>
@@ -22,7 +20,7 @@
     else
     {
         <li class="nav-item align-self-center">
-            <a class="text-white btn btn-primary" id="LoginBtn" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            <a class="text-white btn btn-primary" id="LoginBtn" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
         </li>
     }
 </ul>

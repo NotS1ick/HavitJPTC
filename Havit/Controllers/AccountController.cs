@@ -1,81 +1,147 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Havit.ViewModels;
-using Microsoft.AspNetCore.Identity;
-using Havit.Models;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Havit.ViewModels;
+using Havit.Services.Interfaces;
 
-namespace Havit.Controllers
+public class AuthController : Controller
 {
-    public class AccountController : Controller
+    private readonly IUserStore _userStore;
+    private const string SessionKeyUser = "Username";
+
+    public AuthController(IUserStore userStore)
     {
-        private readonly SignInManager<AppUser> signInManager;
-        private readonly UserManager<AppUser> userManager;
+        _userStore = userStore;
+    }
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
-        {
-            this.signInManager = signInManager;
-            this.userManager = userManager;
-        }
+    public IActionResult Login()
+    {
+        return View();
+    }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+    public IActionResult Register()
+    {
+        return View();
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginVM model)
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginVM model)
+    {
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
+            if (_userStore.UserExists(model.Username))
             {
-                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
-                if (result.Succeeded)
+                if (_userStore.ValidateUser(model.Username, model.Password))
                 {
+                    // Retrieve the user's role from the store
+                    var role = _userStore.GetUserRole(model.Username) ?? "User";
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, model.Username),
+                        new Claim(ClaimTypes.Role, role)
+                    };
+
+                    var claimsIdentity = new ClaimsIdentity(
+                        claims,
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        ClaimTypes.Name,
+                        ClaimTypes.Role);
+
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1)
+                    };
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
+                    HttpContext.Session.SetString(SessionKeyUser, model.Username);
+
+                    // Directly redirect to HabitTracker without immediate authentication check
                     return RedirectToAction("Index", "HabitTracker");
                 }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+
+            ModelState.AddModelError("", "Invalid username or password");
+        }
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(RegisterVM model)
+    {
+        if (ModelState.IsValid)
+        {
+            if (_userStore.UserExists(model.Username))
+            {
+                ModelState.AddModelError("Username", "Username already exists");
                 return View(model);
             }
-            return View(model);
-        }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterVM model)
-        {
             if (!model.AgreedToTos)
             {
-                ModelState.AddModelError(nameof(RegisterVM.AgreedToTos), "You must agree to the Terms of Service");
+                ModelState.AddModelError("AgreedToTos", "You must agree to the Terms of Service");
+                return View(model);
             }
 
-            if (ModelState.IsValid)
+            if (!_userStore.AddUser(model.Username, model.Password))
             {
-                var user = new AppUser
-                {
-                    UserName = model.Username.Trim()
-                };
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "HabitTracker");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                ModelState.AddModelError("", "Unable to register user. Please try again.");
+                return View(model);
             }
-            return View(model);
+
+            // Retrieve the user's role from the store
+            var role = _userStore.GetUserRole(model.Username) ?? "User";
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, model.Username),
+                new Claim(ClaimTypes.Role, role)
+            };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                ClaimTypes.Name,
+                ClaimTypes.Role);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
+            HttpContext.Session.SetString(SessionKeyUser, model.Username);
+
+            return RedirectToAction("Index", "HabitTracker");
         }
 
-        public async Task<IActionResult> Logout()
-        {
-            await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        HttpContext.Session.Clear();
+        return RedirectToAction("Index", "Home");
     }
 }
