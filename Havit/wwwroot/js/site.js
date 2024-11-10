@@ -15,7 +15,7 @@ function updateCollapse() {
     const ContactUs = document.getElementById("ContactUs");
     const TermsOfService = document.getElementById("TermsOfService");
     const navBarNav = ContactUs.parentElement;
-    
+
     if (window.innerWidth <= 576) {
         navBarNav.insertBefore(TermsOfService, ContactUs);
     } else {
@@ -25,3 +25,8 @@ function updateCollapse() {
 
 window.addEventListener("load", updateCollapse);
 window.addEventListener("resize", updateCollapse);
+
+if (document.getElementById('auth-sync')) {
+    const root = ReactDOM.createRoot(document.getElementById('auth-sync'));
+    root.render(<AuthSync />);
+}

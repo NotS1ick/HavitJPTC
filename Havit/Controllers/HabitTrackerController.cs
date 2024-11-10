@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Havit.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Havit.Controllers;
+
+// TODO: Still need to fix the issue where the authorization isn't being showed in other cotrollers
 
 [Authorize(Roles = "User,Admin")]
 public class HabitTrackerController : Controller
@@ -16,16 +16,10 @@ public class HabitTrackerController : Controller
     {
         _logger = logger;
     }
-    
+
     public IActionResult Index()
     {
-        // Log user claims for debugging
-        foreach (var claim in User.Claims)
-        {
-            _logger.LogInformation($"Claim Type: {claim.Type}, Value: {claim.Value}");
-        }
-        
-        // Optional: Check if the user is in the required role
+        foreach (var claim in User.Claims) _logger.LogInformation($"Claim Type: {claim.Type}, Value: {claim.Value}");
         if (!User.IsInRole("User") && !User.IsInRole("Admin"))
         {
             _logger.LogWarning("User is not in the required role to access HabitTracker.");
@@ -34,7 +28,7 @@ public class HabitTrackerController : Controller
 
         return View();
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

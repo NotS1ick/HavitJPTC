@@ -1,21 +1,14 @@
-﻿@{
+﻿@model DataTrackerModel
+@{
     ViewData["Title"] = "Home Page";
 }
-
 <section id="Main" class="vh-100 position-relative">
     <div class="position-absolute top-50 start-50 translate-middle z-2">
         <h1>Havit</h1>
     </div>
     <div class="position-absolute top-0 start-0 w-100 h-100">
         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-            <video
-                src="/movie.mp4"
-                class="video-background"
-                autoplay
-                loop
-                muted
-                playsinline>
-            </video>
+            <video src="/movie.mp4" class="video-background" autoplay loop muted playsinline></video>
         </div>
     </div>
 </section>
@@ -25,10 +18,8 @@
         <p>Havit is a simple habit tracker that helps you to keep track of your habits and goals. It is a free and open source project that is developed by the Havit team.</p>
     </div>
 </section>
-
 <section id="ImgOfTool">
     <div class="container">
-
     </div>
 </section>
 <section id="Register">

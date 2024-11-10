@@ -1,5 +1,4 @@
-﻿@using Havit.ViewModels;
-@model LoginVM;
+﻿@model Havit.ViewModels.LoginVM;
 
 @{
     ViewData["Title"] = "Login";
@@ -12,17 +11,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-1">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control"/>
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="mb-1">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-1 form-check">
                 <label class="form-check-label">
-                    <input asp-for="RememberMe" class="form-check-input" /> @Html.DisplayNameFor(a=>a.RememberMe)
+                    <input asp-for="RememberMe" class="form-check-input"/> @Html.DisplayNameFor(a => a.RememberMe)
                 </label>
             </div>
             <div class="mb-1">
@@ -37,6 +36,6 @@
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

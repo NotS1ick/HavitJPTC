@@ -1,7 +1,6 @@
-﻿@using Havit.ViewModels
-@model RegisterVM
+﻿@model Havit.ViewModels.RegisterVM
 @{
-ViewData["Title"] = "Register";
+    ViewData["Title"] = "Register";
 }
 <div class="row d-flex align-items-center justify-content-center">
     <div class="col-md-4 card p-3" style="background-color: #cd91c4;">
@@ -10,17 +9,17 @@ ViewData["Title"] = "Register";
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-1">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control"/>
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="mb-1">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" id="passwordInput" oninput="checkPasswordRequirements()" />
+                <input asp-for="Password" class="form-control" id="passwordInput" oninput="checkPasswordRequirements()"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-1">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
+                <input asp-for="ConfirmPassword" class="form-control"/>
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="my-3">
@@ -45,7 +44,7 @@ ViewData["Title"] = "Register";
             </div>
             <div class="mb-3">
                 <div class="form-check">
-                    <input asp-for="AgreedToTos" class="form-check-input" />
+                    <input asp-for="AgreedToTos" class="form-check-input"/>
                     <label class="form-check-label">
                         You agree with the <a href="#">TOS</a>
                     </label>
@@ -63,10 +62,10 @@ ViewData["Title"] = "Register";
 </div>
 
 @section Scripts {
-@{
-await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-<script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
     function checkPasswordRequirements() {
         const password = document.getElementById('passwordInput').value;
         const hasSpecialChar = /[!@@#$%^&*(),.?":{}|<>]/.test(password);

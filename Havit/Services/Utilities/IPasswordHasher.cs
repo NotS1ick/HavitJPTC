@@ -1,8 +1,7 @@
-﻿namespace Havit.Services.Utilities
+﻿namespace Havit.Services.Utilities;
+
+public interface IPasswordHasher
 {
-    public interface IPasswordHasher
-    {
-        string HashPassword(string password);
-        bool VerifyPassword(string hashedPassword, string providedPassword);
-    }
+    string HashPassword(string password);
+    bool VerifyPassword(string hashedPassword, string providedPassword);
 }

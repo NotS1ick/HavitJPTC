@@ -10,15 +10,55 @@
 
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
-      <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.11.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
-      <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.11.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8"/>
+        <PackageReference Include="System.Security.Claims" Version="4.3.0"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <None Remove="publish\wwwroot\lib\jquery\LICENSE.txt" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+      <None Remove="publish\wwwroot\lib\jquery\dist\jquery.slim.min.map" />
+      <None Remove="publish\wwwroot\lib\jquery\dist\jquery.slim.js" />
+      <None Remove="publish\wwwroot\lib\jquery\dist\jquery.slim.min.js" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+      <None Remove="publish\wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
+      <None Remove="publish\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Content Remove="publish\web.config" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="publish\publish\web.config"/>
+        <_ContentIncludedByDefault Remove="publish\web.config"/>
+        <_ContentIncludedByDefault Remove="publish\appsettings.Development.json"/>
+        <_ContentIncludedByDefault Remove="publish\appsettings.json"/>
+        <_ContentIncludedByDefault Remove="publish\Havit.deps.json"/>
+        <_ContentIncludedByDefault Remove="publish\Havit.runtimeconfig.json"/>
+        <_ContentIncludedByDefault Remove="publish\Havit.staticwebassets.endpoints.json"/>
+        <_ContentIncludedByDefault Remove="publish\publish\appsettings.Development.json"/>
+        <_ContentIncludedByDefault Remove="publish\publish\appsettings.json"/>
+        <_ContentIncludedByDefault Remove="publish\publish\Havit.deps.json"/>
+        <_ContentIncludedByDefault Remove="publish\publish\Havit.runtimeconfig.json"/>
+        <_ContentIncludedByDefault Remove="publish\publish\Havit.staticwebassets.endpoints.json"/>
     </ItemGroup>
 </Project>

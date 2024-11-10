@@ -1,37 +1,25 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] </title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CustomIdentity.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/CustomIdentity.styles.css" asp-append-version="true"/>
 </head>
 <body class="bg-dark text-white">
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark  box-shadow" style="z-index: 2;">
-        <div class="container" style="--bs-gutter-x: 0;">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                <img id="logoImage" src="/logo154x48.png"/>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between bg-dark">
-                <ul class="navbar-nav">
-                    <li class="nav-item align-self-center" id="ContactUs">
-                        <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
-                    </li>
-                    <li class="nav-item" id="TermsOfService">
-                        <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="TermsOfService">What is havit?</a>
-                    </li>
-                </ul>
-                <partial name="_LoginPartial"/>
-            </div>
-        </div>
-    </nav>
+    <div id="auth-sync"></div>
+    @{
+        var headerModel = new DataTrackerModel
+        {
+            IsAuthenticated = User.Identity?.IsAuthenticated ?? false,
+            CurrentUsername = User.Identity?.Name,
+            CurrentUserRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value
+        };
+    }
+    <partial name="_Header" model="headerModel"/>
 </header>
 <div class="container">
     <main role="main" class="pb-3 bg-dark">
@@ -46,7 +34,6 @@
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>

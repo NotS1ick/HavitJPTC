@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Havit.Models
+namespace Havit.Models;
+
+public class AppUser : IdentityUser
 {
-    public class AppUser : IdentityUser
-    {
-    }
 }

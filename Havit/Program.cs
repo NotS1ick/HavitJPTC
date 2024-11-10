@@ -1,28 +1,16 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
-using Havit.Services.Interfaces;
 using Havit.Services.Implementations;
+using Havit.Services.Interfaces;
 using Havit.Services.Utilities;
-using Microsoft.Extensions.Logging;
+using Havit.Services.Managers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews(options =>
-{
-    // Configure caching for static generation
-    options.Filters.Add(new ResponseCacheAttribute 
-    { 
-        Duration = 3600,
-        Location = ResponseCacheLocation.Any,
-        NoStore = false
-    });
-});
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAuthStateService, AuthStateService>();
 
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSingleton<IUserStore, InMemoryUserStore>();
@@ -33,8 +21,8 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromHours(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment() 
-        ? CookieSecurePolicy.SameAsRequest 
+    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+        ? CookieSecurePolicy.SameAsRequest
         : CookieSecurePolicy.Always;
     options.Cookie.SameSite = SameSiteMode.Strict;
 });
@@ -45,13 +33,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Auth/Login";
         options.LogoutPath = "/Auth/Logout";
         options.AccessDeniedPath = "/Auth/AccessDenied";
-        options.Cookie.Name = "YourAppCookie";
+        options.Cookie.Name = "HavitCookie";
         options.Cookie.HttpOnly = true;
         options.ExpireTimeSpan = TimeSpan.FromHours(1);
         options.SlidingExpiration = true;
         options.Cookie.SameSite = SameSiteMode.Strict;
-        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment() 
-            ? CookieSecurePolicy.SameAsRequest 
+        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+            ? CookieSecurePolicy.SameAsRequest
             : CookieSecurePolicy.Always;
     });
 
@@ -64,7 +52,6 @@ builder.Services.AddHsts(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -90,15 +77,15 @@ app.Use(async (context, next) =>
     }
 });
 
-// Security headers middleware
 app.Use(async (context, next) =>
 {
     context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
     context.Response.Headers.Add("X-Frame-Options", "DENY");
     context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
     context.Response.Headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
-    context.Response.Headers.Add("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
-    
+    context.Response.Headers.Add("Permissions-Policy",
+        "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
+
     await next();
 });
 
@@ -107,11 +94,25 @@ app.UseRouting();
 
 app.UseSession();
 app.UseAuthentication();
+app.UseMiddleware<AuthStateMiddleware>();
 app.UseAuthorization();
 
-// Configure routes
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
+
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next.Invoke();
+    }
+    catch (Exception ex)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An unexpected error occurred.");
+        throw;
+    }
+});
 
 app.Run();
