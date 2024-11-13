@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
+      "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\typewriter.js",
+      "PackagePath": "staticwebassets\\js\\typewriter.js"
+    },
+    {
       "Id": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },

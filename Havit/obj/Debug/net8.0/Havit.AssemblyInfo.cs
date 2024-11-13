@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Havit")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78876b38ed2fc06eac7d93c0c7dd7110f424a0d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d5c11b2b6b5909c9dbc14bb7ea7dedaf53028c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Havit")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Havit")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

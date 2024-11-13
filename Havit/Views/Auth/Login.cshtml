@@ -3,34 +3,41 @@
 @{
     ViewData["Title"] = "Login";
 }
+<style>
+    html {
+        overflow-y: hidden;
+    }
+</style>
 
-<div class="row justify-content-center">
-    <div class="col-md-3 card p-3" style="background-color: #cd91c4;">
-        <h2 class="text-center text-info">Login</h2>
-        <form asp-action="Login" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-1">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control"/>
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="mb-1 form-check">
-                <label class="form-check-label">
-                    <input asp-for="RememberMe" class="form-check-input"/> @Html.DisplayNameFor(a => a.RememberMe)
-                </label>
-            </div>
-            <div class="mb-1">
-                <div class="d-flex flex-column align-items-center gap-2">
-                    <input type="submit" value="Login" class="btn btn-primary btn-sm"/>
-                    <a asp-action="Register" class="text-decoration-none" asp-route-returnurl="@ViewData["ReturnUrl"]">Don't have account?</a>
+<div class="min-vh-100 d-flex align-items-center">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-3 card p-3 review-card">
+            <h2 class="text-center">Login</h2>
+            <form asp-action="Login" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-1">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control"/>
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
-            </div>
-        </form>
+                <div class="mb-1">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="mb-1 form-check">
+                    <label class="form-check-label">
+                        <input asp-for="RememberMe" class="form-check-input"/> @Html.DisplayNameFor(a => a.RememberMe) @*prolly works after the changes, didn't test*@
+                    </label>
+                </div>
+                <div class="mb-1">
+                    <div class="d-flex flex-column align-items-center gap-2">
+                        <input type="submit" value="Login" class="btn btn-primary btn-sm"/>
+                        <a asp-action="Register" class="text-decoration-none" asp-route-returnurl="@ViewData["ReturnUrl"]">Don't have account?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

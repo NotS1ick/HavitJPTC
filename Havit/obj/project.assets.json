@@ -4477,6 +4477,7 @@
       "packagesPath": "C:\\Users\\Mareks\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\obj\\",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
@@ -4508,8 +4509,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "all"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -4538,6 +4538,7 @@
             "version": "[8.0.10, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.2.8, )"
           },

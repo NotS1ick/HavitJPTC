@@ -11,6 +11,7 @@ updateLogo();
 
 window.addEventListener("resize", updateLogo);
 
+
 function updateCollapse() {
     const ContactUs = document.getElementById("ContactUs");
     const TermsOfService = document.getElementById("TermsOfService");

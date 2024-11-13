@@ -2,9 +2,12 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+
+<script src="~/js/typewriter.js"></script>
 <section id="Main" class="vh-100 position-relative">
     <div class="position-absolute top-50 start-50 translate-middle z-2">
-        <h1>Havit</h1>
+        <p class="typewriter havit" data-delay="100">Havit</p>
     </div>
     <div class="position-absolute top-0 start-0 w-100 h-100">
         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
@@ -12,20 +15,117 @@
         </div>
     </div>
 </section>
-<section id="WhatIsHavit">
-    <div class="container">
-        <h1>What is Havit?</h1>
-        <p>Havit is a simple habit tracker that helps you to keep track of your habits and goals. It is a free and open source project that is developed by the Havit team.</p>
+<div class="row justify-content-between gy-4">
+    <div class="col-12 col-md-4 d-flex nope">
+        <section id="WhatIsHavit" class="mt-5">
+            <div class="container nope">
+                <h1 class="typewriter typewritesizeH1" data-delay="80">What is Havit?</h1>
+                <p class="typewriter typewritesizeP" data-delay="30">Havit is a simple habit tracker that helps you to keep track of your habits and goals. It is a free and open source project that is developed by the Havit team.</p>
+            </div>
+        </section>
     </div>
-</section>
-<section id="ImgOfTool">
-    <div class="container">
+
+    <div class="col-12 col-md-4 d-flex nops">
+        <section id="Register" class="mt-5">
+            <div class="container nops">
+                <div class="text-end">
+                    <h1 class="typewriter typewritesizeH1" data-delay="80">Start Using the Tracker</h1>
+                    <p class="typewriter typewritesizeP" data-delay="30">What are you waiting for? Register by pressing the button below and start using the tracker already to track your habits, starting from now on.</p>
+                    <div class="text-end">
+                        <a asp-controller="Auth" asp-action="Register" class="btn btn-primary btn-lg typewriter .btn.typewriter">Register</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-</section>
-<section id="Register">
+</div>
+<div class="clearfix"></div>
+
+
+<section id="Reviews" style="margin-top: 10vw;">
     <div class="container">
-        <h1>Register</h1>
-        <p>Register here to get access to the full functionality of Havit.</p>
-        <a asp-action="Register" class="btn btn-primary btn-lg">Register</a>
+        <h1 class="text-center typewriter typewritesizeH1" data-delay="80">Reviews</h1>
+        <div class="row justify-content-center align-items-center gy-4">
+            <div class="col-12 col-md-4 d-flex justify-content-center">
+                <div class="card review-card" style="width: 18rem;">
+                    <div class="card-header" style="border: 0">
+                        <div class="row align-items-center">
+                            <div class="col-auto ps-0">
+                                <img class="pfp-card" width="50px" height="50px"  src="https://i.kym-cdn.com/entries/icons/original/000/030/329/cover1.jpg"/>
+                            </div>
+                            <div class="col ps-0">
+                                <h6 class="mt-3">fr1zy</h6>
+                            </div>
+                            <div class="col-auto mt-1" style="padding: 0;">
+                                <span style="color: yellow;">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text typewriter typewritesizeP">"This is such a amazing product. It has helped me keep track of my habits, so I remember to do all of them."</p>
+                    </div>
+                </div>
+            </div>
+            @* https://i.kym-cdn.com/entries/icons/original/000/030/329/cover1.jpg *@
+            @* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ *@
+            <div class="col-12 col-md-4 d-flex justify-content-center">
+                <div class="card review-card" style="width: 18rem;">
+                    <div class="card-header" style="border: 0">
+                        <div class="row align-items-center">
+                            <div class="col-auto ps-0">
+                                <img class="pfp-card" width="50px" height="50px"  src="https://i.kym-cdn.com/entries/icons/original/000/030/329/cover1.jpg"/>
+                            </div>
+                            <div class="col ps-0">
+                                <h6 class="mt-3">NotS1ick</h6>
+                            </div>
+                            <div class="col-auto mt-1" style="padding: 0;">
+                                <span style="color: yellow;">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text typewriter typewritesizeP">"This is such a amazing product. It has helped me keep track of my habits, so I remember to do all of them."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 d-flex justify-content-center">
+                <div class="card review-card" style="width: 18rem;">
+                    <div class="card-header" style="border: 0">
+                        <div class="row align-items-center">
+                            <div class="col-auto ps-0">
+                                <img class="pfp-card" width="50px" height="50px"  src="https://i.kym-cdn.com/entries/icons/original/000/030/329/cover1.jpg"/>
+                            </div>
+                            <div class="col ps-0">
+                                <h6 class="mt-3">Madzhis</h6>
+                            </div>
+                            <div class="col-auto mt-1" style="padding: 0;">
+                                <span style="color: yellow;">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text typewriter typewritesizeP">"This is such a amazing product. It has helped me keep track of my habits, so I remember to do all of them."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

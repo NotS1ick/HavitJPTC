@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Havit.Controllers;
 
-// TODO: Still need to fix the issue where the authorization isn't being showed in other cotrollers
-
 [Authorize(Roles = "User,Admin")]
 public class HabitTrackerController : Controller
 {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TQj5OAZM2DnD5fOlhYCTQnE+P75E2L2CcH96Vz9ZIEk=",
+  "Hash": "vFulul35U9ynkGrsolom5SvRvPM84aKKLK9ZPO7sDv0=",
   "Source": "Havit",
   "BasePath": "/",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "0ftmy6brso",
-      "Integrity": "lBcm7IWAF5eBOiJo9+otXFQsXEiz0kghxxxLWdRU8vI=",
+      "Fingerprint": "x6sxw1vy4b",
+      "Integrity": "B78RfBF+xSmvzZWTKWuo6X7ewPF+p9WC3QUIqgv/0ZM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -115,11 +115,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "kayurqctl3",
-      "Integrity": "HKzhIyFxKWsx3XWEit4V1Kv7kuyVmXiLkbQO1tuqQ6g=",
+      "Fingerprint": "bhwbwm2oy4",
+      "Integrity": "0S5jO1K8lRS2H3te9tSK6pL7oN/qQK1PnHfinJ5OpDQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\typewriter.js",
+      "SourceId": "Havit",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "js/typewriter#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zii7yl82em",
+      "Integrity": "ddA42YCkEe60LQMvqAWiun/Q3NNbd4FFp70GPP4RO7E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\typewriter.js"
     },
     {
       "Identity": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
@@ -1447,51 +1468,6 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.0ftmy6brso.css",
-      "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3793"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"lBcm7IWAF5eBOiJo9+otXFQsXEiz0kghxxxLWdRU8vI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 10 Nov 2024 21:27:11 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "0ftmy6brso"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-lBcm7IWAF5eBOiJo9+otXFQsXEiz0kghxxxLWdRU8vI="
-        }
-      ]
-    },
-    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -1502,7 +1478,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3793"
+          "Value": "5990"
         },
         {
           "Name": "Content-Type",
@@ -1510,11 +1486,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"lBcm7IWAF5eBOiJo9+otXFQsXEiz0kghxxxLWdRU8vI=\""
+          "Value": "\"B78RfBF+xSmvzZWTKWuo6X7ewPF+p9WC3QUIqgv/0ZM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 Nov 2024 21:27:11 GMT"
+          "Value": "Wed, 13 Nov 2024 22:57:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1524,7 +1500,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-lBcm7IWAF5eBOiJo9+otXFQsXEiz0kghxxxLWdRU8vI="
+          "Value": "sha256-B78RfBF+xSmvzZWTKWuo6X7ewPF+p9WC3QUIqgv/0ZM="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.x6sxw1vy4b.css",
+      "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5990"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"B78RfBF+xSmvzZWTKWuo6X7ewPF+p9WC3QUIqgv/0ZM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 13 Nov 2024 22:57:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x6sxw1vy4b"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-B78RfBF+xSmvzZWTKWuo6X7ewPF+p9WC3QUIqgv/0ZM="
         }
       ]
     },
@@ -1775,6 +1796,51 @@
       ]
     },
     {
+      "Route": "js/site.bhwbwm2oy4.js",
+      "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "962"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0S5jO1K8lRS2H3te9tSK6pL7oN/qQK1PnHfinJ5OpDQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 13 Nov 2024 22:40:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bhwbwm2oy4"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0S5jO1K8lRS2H3te9tSK6pL7oN/qQK1PnHfinJ5OpDQ="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\site.js",
       "Selectors": [],
@@ -1785,7 +1851,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "960"
+          "Value": "962"
         },
         {
           "Name": "Content-Type",
@@ -1793,11 +1859,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HKzhIyFxKWsx3XWEit4V1Kv7kuyVmXiLkbQO1tuqQ6g=\""
+          "Value": "\"0S5jO1K8lRS2H3te9tSK6pL7oN/qQK1PnHfinJ5OpDQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 Nov 2024 21:27:11 GMT"
+          "Value": "Wed, 13 Nov 2024 22:40:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1807,13 +1873,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-HKzhIyFxKWsx3XWEit4V1Kv7kuyVmXiLkbQO1tuqQ6g="
+          "Value": "sha256-0S5jO1K8lRS2H3te9tSK6pL7oN/qQK1PnHfinJ5OpDQ="
         }
       ]
     },
     {
-      "Route": "js/site.kayurqctl3.js",
-      "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\site.js",
+      "Route": "js/typewriter.js",
+      "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\typewriter.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1822,7 +1888,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "960"
+          "Value": "3974"
         },
         {
           "Name": "Content-Type",
@@ -1830,11 +1896,48 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HKzhIyFxKWsx3XWEit4V1Kv7kuyVmXiLkbQO1tuqQ6g=\""
+          "Value": "\"ddA42YCkEe60LQMvqAWiun/Q3NNbd4FFp70GPP4RO7E=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 Nov 2024 21:27:11 GMT"
+          "Value": "Wed, 13 Nov 2024 16:20:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ddA42YCkEe60LQMvqAWiun/Q3NNbd4FFp70GPP4RO7E="
+        }
+      ]
+    },
+    {
+      "Route": "js/typewriter.zii7yl82em.js",
+      "AssetFile": "C:\\Users\\Mareks\\RiderProjects\\HavitJPTC\\Havit\\wwwroot\\js\\typewriter.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3974"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ddA42YCkEe60LQMvqAWiun/Q3NNbd4FFp70GPP4RO7E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 13 Nov 2024 16:20:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1844,15 +1947,15 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "kayurqctl3"
+          "Value": "zii7yl82em"
         },
         {
           "Name": "label",
-          "Value": "js/site.js"
+          "Value": "js/typewriter.js"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-HKzhIyFxKWsx3XWEit4V1Kv7kuyVmXiLkbQO1tuqQ6g="
+          "Value": "sha256-ddA42YCkEe60LQMvqAWiun/Q3NNbd4FFp70GPP4RO7E="
         }
       ]
     },

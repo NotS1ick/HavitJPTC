@@ -6,7 +6,6 @@ using Havit.Services.Managers;
 
 namespace Havit.Controllers;
 
-// Remove the controller-level cache attribute since we want to control caching at the action level
 public class HomeController : BaseController
 {
     private readonly IAuthStateService _authStateService;
