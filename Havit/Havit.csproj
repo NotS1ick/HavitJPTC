@@ -60,5 +60,11 @@
         <_ContentIncludedByDefault Remove="publish\publish\Havit.deps.json"/>
         <_ContentIncludedByDefault Remove="publish\publish\Havit.runtimeconfig.json"/>
         <_ContentIncludedByDefault Remove="publish\publish\Havit.staticwebassets.endpoints.json"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-9ffd9151-cfe8-4e0a-9322-babf6c6e6cfc\4c281c42-c43f-463a-8094-c7cbe7211820_Designer.jpeg" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="wwwroot\uploads\" />
     </ItemGroup>
 </Project>

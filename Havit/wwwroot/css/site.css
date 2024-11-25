@@ -130,6 +130,11 @@ body {
     border: 2px solid #cd91c4;
 }
 
+.habit-card {
+    object-fit: cover;
+    border: 5px solid #cd91c4;
+}
+
 /* Typewriter Effect */
 .typewriter {
     opacity: 1;
@@ -144,7 +149,7 @@ body {
 .typewriter-char {
     display: inline-block;
     opacity: 0;
-    transition: opacity 0.1s ease-in;
+    transition: opacity 0.5s ease-in;
 }
 
 .typewriter-char.visible {
@@ -202,6 +207,21 @@ body {
 
 .havit {
     font-size: 5vw;
+}
+
+@keyframes appear{
+    from {
+        opacity: 0;
+        scale: 0.5;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.btn-choice {
+    animation: appear 0.5s ease-in-out;
 }
 
 /* Media Queries */

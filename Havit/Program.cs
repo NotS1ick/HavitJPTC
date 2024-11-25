@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddMemoryCache();
+builder.Services.AddResponseCaching();
+builder.Services.AddLogging();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthStateService, AuthStateService>();
@@ -95,6 +98,7 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseMiddleware<AuthStateMiddleware>();
+app.UseResponseCaching();
 app.UseAuthorization();
 
 app.MapControllerRoute(

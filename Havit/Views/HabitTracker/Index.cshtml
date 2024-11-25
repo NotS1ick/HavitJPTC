@@ -1,81 +1,319 @@
-﻿@{
-ViewData["Title"] = "HabitTracker";
+﻿@model List<HabitViewModel>
+@{
+    ViewData["Title"] = "HabitTracker";
 }
 
-@* !TODO: Start tomorow 11/15/2024 *@
+@* $1$ TODO: Fix the issue where the  habit completion graph is higher than the graph graph #1# - Now a feature *@
+@* TODO: Add an option for the user to make goals on completion of a specifiy or multiple habits *@
+@* TODO: Add a notification that appear on the bottom left showing that the habit has been completed *@
 
+<script src="~/js/graph.js"></script>
+<script src="~/js/habits.js"></script>
 <div class="container mt-5">
-    <section id="test2">
+    <section id="statistics">
         <h1 class="text-center mb-4">Statistics</h1>
-        <div class="row justify-content-between">
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+        <div class="row justify-content-center gap-4">
+            <div class="col-md-5">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a class="btn btn-secondary card-body-a btn-choice" onclick="showHabitCompletion()">
+                            Habit Completion
+                        </a>
+                        <a class="btn btn-secondary card-body-a btn-choice" onclick="showDayStreak()">
+                            Day streak
+                        </a>
+                        <a class="btn btn-secondary card-body-a btn-choice" onclick="showGoalsAchieved()">
+                            Goals Achieved
+                        </a>
+                        <div id="habitcompletion" class="graphDiv d-none">
+                            <a id="backBtn" href="#" onclick="goBack()">
+                                <i class="bi bi-arrow-left"></i>
+                            </a>
+                            <h4 class="card-title text-center">Habit Completion</h4>
+                            <div class="text-center" style="height: 300px;">
+                                <canvas id="habitCompletionChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="daystreak" class="graphDiv d-none">
+                            <a id="backBtn" href="#" onclick="goBack()"> 
+                                <i class="bi bi-arrow-left"></i>
+                            </a>
+                            <h4 class="card-title text-center">Day Streak</h4>
+                            <div class="text-center" style="height: 300px;">
+                                <canvas id="habitTrendChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="goalsachieved" class="graphDiv d-none div-to-disappear">
+                            <a id="backBtn" href="#" onclick="goBack()">
+                                <i class="bi bi-arrow-left"></i>
+                            </a>
+                            <h4 class="card-title text-center">Goals Achieved</h4>
+                            <div class="text-center" style="height: 300px;">
+                                <canvas id="GoalChart"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="container mt-5">
-        <section id="test">
-            <h1 class="text-center mb-4">My Habits</h1>
-            <div class="row align-items-start">
+    <section id="habits" class="mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">My Habits</h1>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addHabitModal">
+                <i class="bi bi-plus-lg"></i> Add New Habit
+            </button>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var habit = Model[i];
+                var isCompleted = habit.IsCompletedToday();
                 <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
+                    <div class="card h-100 review-card @(isCompleted ? "opacity-75" : "")">
+                        <div class="position-absolute top-0 end-0 m-2 d-flex gap-2">
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editHabitModal"
+                                    data-habit-id="@habit.Id"
+                                    data-habit-name="@habit.Name"
+                                    data-habit-frequency="@habit.Frequency">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-habit" data-habit-id="@habit.Id">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <img class="card-img-top object-fit-cover" height="200" src="@habit.ImagePath"
+                             alt="@habit.Name image">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <h4 class="card-title text-center">@habit.Name</h4>
+                            <p class="card-text text-center text-white">
+                                <i class="bi bi-calendar3"></i> @habit.Frequency
+                            </p>
+                            <div class="d-grid">
+                                <button class="btn btn-primary complete-habit @(isCompleted ? "disabled" : "")"
+                                        data-habit-id="@habit.Id"
+                                        @(isCompleted ? "disabled" : "")>
+                                    @if (isCompleted)
+                                    {
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        <span>Completed</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-check-lg"></i>
+                                        <span>Complete</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <small class=" text-white">Current streak: @habit.TimesComplete days</small>
+                            @if (habit.LastCompletedAt.HasValue)
+                            {
+                                <br/>
+                                <small class="text-muted">Last
+                                    completed: @habit.LastCompletedAt.Value.ToString("MMM dd, yyyy")</small>
+                            }
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+            }
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="editHabitModal" tabindex="-1" aria-labelledby="editHabitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content review-card">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editHabitModalLabel">Edit Habit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </section>
+            <form id="editHabitForm" method="post" asp-controller="HabitTracker" asp-action="UpdateHabit"
+                  enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="habitId" name="Id"/>
+
+                    <div class="mb-3">
+                        <label for="habitName" class="form-label">Habit Name</label>
+                        <input type="text" class="form-control" id="habitName" name="Name" required
+                               minlength="3" maxlength="50">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="frequency" class="form-label">Frequency</label>
+                        <select class="form-select" id="frequency" name="Frequency" required>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imageFile" class="form-label">Habit Image</label>
+                        <input type="file" class="form-control" id="imageFile" name="ImageFile"
+                               accept="image/*">
+                        <div class="form-text text-white">
+                            Leave empty to keep current image. Images should be 1:1 or 3:2 aspect ratio (to see the object).
+                            Maximum file size: 5MB.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <img id="imagePreview" class="img-fluid d-none rounded" alt="Image preview">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<div class="modal fade" id="addHabitModal" tabindex="-1" aria-labelledby="addHabitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content review-card">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addHabitModalLabel">Add New Habit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-controller="HabitTracker" asp-action="AddHabit" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <label for="newName" class="form-label">Habit Name</label>
+                    <input type="text" class="form-control" id="newName" name="Name" required>
+                    <div class="mb-3">
+                        <label for="newFrequency" class="form-label">Frequency</label>
+                        <select class="form-select" id="newFrequency" name="Frequency" required>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="newImageFile" class="form-label">Habit Image</label>
+                        <input type="file" class="form-control" id="newImageFile" name="ImageFile"
+                               accept="image/*" required>
+                        <div class="form-text text-white">
+                            Images should be 1:1 or 3:2 aspect ratio (so you can see the object in it). Maximum file size: 5MB.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <img id="newImagePreview" class="img-fluid d-none rounded" alt="New habit image preview">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Habit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var divs = document.getElementsByClassName("graphDiv");
+        var btns = document.getElementsByClassName("card-body-a");
+        var backBtn = document.getElementById("backBtn");
+
+        function showHabitCompletion() {
+            var div = document.getElementById("habitcompletion");
+            if (div) {
+                div.classList.toggle("d-none");
+            }
+            checkGraphsAndHideButtons();
+        }
+
+        function showDayStreak() {
+            var div = document.getElementById("daystreak");
+            if (div) {
+                div.classList.toggle("d-none");
+            }
+            checkGraphsAndHideButtons();
+        }
+
+        function showGoalsAchieved() {
+            var div = document.getElementById("goalsachieved");
+            if (div) {
+                div.classList.toggle("d-none");
+            }
+            checkGraphsAndHideButtons();
+        }
+
+        function goBack() {
+            if (window.trendChart) {
+                trendChart.options.plugins.legend.labels.color = 'rgba(0,0,0,0)';
+                trendChart.options.scales.x.ticks.color = 'rgba(0,0,0,0)';
+                trendChart.options.scales.y.ticks.color = 'rgba(0,0,0,0)';
+
+                trendChart.data.datasets.forEach((dataset, index) => {
+                    dataset.borderColor = 'rgba(0,0,0,0)';
+                    dataset.backgroundColor = 'rgba(0,0,0,0)';
+                    dataset.pointRadius = 0;
+                });
+
+                trendChart.update({
+                    duration: 500,
+                    easing: 'easeOutQuad',
+                    animation: {
+                        duration: 500,
+                        easing: 'easeOutQuad'
+                    }
+                });
+            }
+
+            setTimeout(() => {
+                for (var i = 0; i < divs.length; i++) {
+                    divs[i].classList.add("d-none");
+                }
+
+                for (var j = 0; j < btns.length; j++) {
+                    btns[j].classList.remove("d-none");
+                }
+
+                if (window.trendChart) {
+                    trendChart.options.plugins.legend.labels.color = 'black';
+                    trendChart.options.scales.x.ticks.color = 'black';
+                    trendChart.options.scales.y.ticks.color = 'black';
+
+                    trendChart.data.datasets.forEach((dataset, index) => {
+                        dataset.borderColor = index === 0
+                            ? '#8884d8'
+                            : `hsl(${index * 60}, 70%, 50%)`;
+                        dataset.backgroundColor = index === 0
+                            ? 'rgba(136, 132, 216, 0.1)'
+                            : `hsla(${index * 60}, 70%, 50%, 0.1)`;
+                        dataset.pointRadius = 4;
+                    });
+
+                    trendChart.update({ duration: 0 });
+                }
+            }, 500);
+        }
+
+        function checkGraphsAndHideButtons() {
+            var shouldHideButtons = false;
+            for (var i = 0; i < divs.length; i++) {
+                if (!divs[i].classList.contains("d-none")) {
+                    shouldHideButtons = true;
+                    break;
+                }
+            }
+
+            for (var j = 0; j < btns.length; j++) {
+                if (shouldHideButtons) {
+                    btns[j].classList.add("d-none");
+                } else {
+                    btns[j].classList.remove("d-none");
+                }
+            }
+        }
+    </script>
+}

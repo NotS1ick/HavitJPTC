@@ -1,4 +1,6 @@
-﻿function updateLogo() {
+﻿
+
+function updateLogo() {
     const logoImage = document.getElementById("logoImage");
     if (window.innerWidth <= 425) {
         logoImage.src = "/logo100x24.png";
@@ -31,3 +33,4 @@ if (document.getElementById('auth-sync')) {
     const root = ReactDOM.createRoot(document.getElementById('auth-sync'));
     root.render(<AuthSync />);
 }
+

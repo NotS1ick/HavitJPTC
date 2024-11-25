@@ -4,7 +4,7 @@
         this.originalText = element.textContent;
         this.element.setAttribute('data-final-text', this.originalText);
         this.element.textContent = '';
-        this.delay = options.delay || 50;
+        this.delay = options.delay || .5;
         this.currentChar = 0;
         this.onComplete = options.onComplete || (() => {});
 
@@ -74,7 +74,7 @@ function initTypewriterOnScroll() {
                     Array.from(paragraphs).indexOf(entry.target) === paragraphs.length - 1) {
 
                     const typewriter = new TypeWriter(entry.target, {
-                        delay: parseInt(entry.target.dataset.delay) || 50,
+                        delay: parseInt(entry.target.dataset.delay) || .5,
                         onComplete: () => {
                             setTimeout(() => {
                                 button.style.transition = 'opacity 0.5s ease-in, transform 0.5s ease-in';
@@ -91,7 +91,7 @@ function initTypewriterOnScroll() {
                     typewriter.type();
                 } else {
                     const typewriter = new TypeWriter(entry.target, {
-                        delay: parseInt(entry.target.dataset.delay) || 50
+                        delay: parseInt(entry.target.dataset.delay) || .5
                     });
                     typewriter.type();
                 }

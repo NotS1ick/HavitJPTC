@@ -50,10 +50,12 @@ public class AuthController : Controller
                 if (_userStore.ValidateUser(model.Username, model.Password))
                 {
                     var role = _userStore.GetUserRole(model.Username) ?? "User";
+                    var userId = _userStore.GetUserId(model.Username);
 
                     var claims = new List<Claim>
                     {
                         new(ClaimTypes.Name, model.Username),
+                        new(ClaimTypes.NameIdentifier, userId),
                         new(ClaimTypes.Role, role)
                     };
 
@@ -76,7 +78,7 @@ public class AuthController : Controller
 
                     HttpContext.Session.SetString(SessionKeyUser, model.Username);
                     
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "HabitTracker");
                 }
 
             ModelState.AddModelError("", "Invalid username or password");
@@ -102,7 +104,8 @@ public class AuthController : Controller
                 return View(model);
             }
 
-            if (!_userStore.AddUser(model.Username, model.Password))
+            var userId = _userStore.AddUser(model.Username, model.Password);
+            if (userId == null)
             {
                 ModelState.AddModelError("", "Unable to register user. Please try again.");
                 return View(model);
@@ -113,6 +116,7 @@ public class AuthController : Controller
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Name, model.Username),
+                new(ClaimTypes.NameIdentifier, userId),
                 new(ClaimTypes.Role, role)
             };
 
@@ -134,11 +138,9 @@ public class AuthController : Controller
                 authProperties);
 
             HttpContext.Session.SetString(SessionKeyUser, model.Username);
-
-            TempData["RequiresRefresh"] = true;
+        
             return RedirectToAction("Index", "HabitTracker");
         }
-
         return View(model);
     }
 
