@@ -2,6 +2,18 @@
     const editHabitModal = document.getElementById('editHabitModal');
     const imagePreview = document.getElementById('imagePreview');
     const imageFile = document.getElementById('imageFile');
+    
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+    
+    function restoreScrollPosition() {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            sessionStorage.removeItem('scrollPosition');
+        }
+    }
 
     editHabitModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -46,12 +58,12 @@
     });
 
     document.querySelectorAll('.complete-habit').forEach(button => {
-        button.addEventListener('click', async function () {
+        button.addEventListener('click', async function(e) {
+            e.preventDefault();
             if (this.classList.contains('disabled')) return;
 
             const habitId = this.getAttribute('data-habit-id');
-            const button = this;
-    
+
             try {
                 const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
                 if (!tokenElement) {
@@ -62,6 +74,9 @@
                 formData.append('id', habitId);
                 formData.append('__RequestVerificationToken', tokenElement.value);
 
+                this.classList.add('disabled');
+                this.setAttribute('disabled', '');
+
                 const response = await fetch('/HabitTracker/CompleteHabit', {
                     method: 'POST',
                     body: formData
@@ -70,24 +85,47 @@
                 if (!response.ok) {
                     throw new Error('Failed to complete habit');
                 }
-
                 const result = await response.json();
-
-                const card = button.closest('.card');
-                card.classList.add('opacity-75');
-                button.classList.add('disabled');
-                button.setAttribute('disabled', '');
-                button.innerHTML = '<i class="bi bi-check-circle-fill"></i> <span>Completed</span>';
-
-                const streakElement = card.querySelector('.card-footer small');
-                streakElement.textContent = `Current streak: ${result.timesComplete} days`;
+                
+                showToast(`Habit completed successfully!`);
 
             } catch (error) {
                 console.error('Error completing habit:', error);
                 alert('Failed to complete habit. Please try again.');
+                this.classList.remove('disabled');
+                this.removeAttribute('disabled');
             }
         });
     });
+
+    function showToast(message) {
+        const toastContainer = document.getElementById('toastContainer');
+
+        const toast = document.createElement('div');
+        toast.className = 'toast align-items-center text-bg-success border-0';
+        toast.role = 'alert';
+        toast.ariaLive = 'assertive';
+        toast.ariaAtomic = 'true';
+        toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                ${message}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    `;
+
+        toastContainer.appendChild(toast);
+        
+        const bootstrapToast = new bootstrap.Toast(toast);
+        bootstrapToast.show();
+        
+        toast.addEventListener('hidden.bs.toast', () => {
+            toast.remove();
+        });
+    }
+    
+    window.addEventListener('load', restoreScrollPosition);
 
     document.querySelectorAll('.delete-habit').forEach(button => {
         button.addEventListener('click', async function () {
@@ -102,6 +140,8 @@
                     const formData = new FormData();
                     formData.append('id', habitId);
                     formData.append('__RequestVerificationToken', tokenElement.value);
+                    
+                    storeScrollPosition();
 
                     const response = await fetch('/HabitTracker/DeleteHabit', {
                         method: 'POST',

@@ -3,53 +3,32 @@
     ViewData["Title"] = "HabitTracker";
 }
 
-@* $1$ TODO: Fix the issue where the  habit completion graph is higher than the graph graph #1# - Now a feature *@
-@* TODO: Add an option for the user to make goals on completion of a specifiy or multiple habits *@
-@* TODO: Add a notification that appear on the bottom left showing that the habit has been completed *@
-
 <script src="~/js/graph.js"></script>
 <script src="~/js/habits.js"></script>
+<div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
 <div class="container mt-5">
+    <div class="btn-group" role="group">
+        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+        <label class="btn btn-primary" for="btncheck1">Hide Stats</label>
+    </div>
     <section id="statistics">
-        <h1 class="text-center mb-4">Statistics</h1>
-        <div class="row justify-content-center gap-4">
-            <div class="col-md-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <a class="btn btn-secondary card-body-a btn-choice" onclick="showHabitCompletion()">
-                            Habit Completion
-                        </a>
-                        <a class="btn btn-secondary card-body-a btn-choice" onclick="showDayStreak()">
-                            Day streak
-                        </a>
-                        <a class="btn btn-secondary card-body-a btn-choice" onclick="showGoalsAchieved()">
-                            Goals Achieved
-                        </a>
-                        <div id="habitcompletion" class="graphDiv d-none">
-                            <a id="backBtn" href="#" onclick="goBack()">
-                                <i class="bi bi-arrow-left"></i>
-                            </a>
-                            <h4 class="card-title text-center">Habit Completion</h4>
-                            <div class="text-center" style="height: 300px;">
-                                <canvas id="habitCompletionChart"></canvas>
-                            </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card">
+                        <h2 class="card-title text-center m-2">Statistics</h2>
+                        <div class="dropdown-center mx-auto p-2">
+                            <button id="dropdownMenuBtn" class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Goal Progress
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item active" href="#" data-chart-type="goals">Goal Progress</a></li>
+                                <li><a class="dropdown-item" href="#" data-chart-type="completions">Habit Completions</a></li>
+                            </ul>
                         </div>
-                        <div id="daystreak" class="graphDiv d-none">
-                            <a id="backBtn" href="#" onclick="goBack()"> 
-                                <i class="bi bi-arrow-left"></i>
-                            </a>
-                            <h4 class="card-title text-center">Day Streak</h4>
-                            <div class="text-center" style="height: 300px;">
-                                <canvas id="habitTrendChart"></canvas>
-                            </div>
-                        </div>
-                        <div id="goalsachieved" class="graphDiv d-none div-to-disappear">
-                            <a id="backBtn" href="#" onclick="goBack()">
-                                <i class="bi bi-arrow-left"></i>
-                            </a>
-                            <h4 class="card-title text-center">Goals Achieved</h4>
-                            <div class="text-center" style="height: 300px;">
-                                <canvas id="GoalChart"></canvas>
+                        <div class="card-body pt-3" style="min-height: 300px;">
+                            <div id="goalsProgress" class="h-100 w-100">
+                                <canvas id="goalProgressChart" style="min-height: 300px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -92,6 +71,17 @@
                             <p class="card-text text-center text-white">
                                 <i class="bi bi-calendar3"></i> @habit.Frequency
                             </p>
+                            @if (habit.GoalType != "none")
+                            {
+                                <small class="text-white">
+                                    Goal Progress: @habit.GoalProgress / @habit.GoalTarget
+                                    (@habit.GoalType)
+                                </small>
+                                @if (habit.IsGoalAchieved)
+                                {
+                                    <small class="text-success">Goal Achieved!</small>
+                                }
+                            }
                             <div class="d-grid">
                                 <button class="btn btn-primary complete-habit @(isCompleted ? "disabled" : "")"
                                         data-habit-id="@habit.Id"
@@ -114,8 +104,10 @@
                             @if (habit.LastCompletedAt.HasValue)
                             {
                                 <br/>
-                                <small class="text-muted">Last
-                                    completed: @habit.LastCompletedAt.Value.ToString("MMM dd, yyyy")</small>
+                                <small class="text-white">
+                                    Last
+                                    completed: @habit.LastCompletedAt.Value.ToString("MMM dd, yyyy")
+                                </small>
                             }
                         </div>
                     </div>
@@ -150,6 +142,20 @@
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="goalType" class="form-label">Goal Type</label>
+                        <select class="form-select" id="goalType" name="GoalType">
+                            <option value="none">None</option>
+                            <option value="streak">Day Streak</option>
+                            <option value="count">Completion Count</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="goalTarget" class="form-label">Goal Target</label>
+                        <input type="number" class="form-control" id="goalTarget" name="GoalTarget" min="1" placeholder="Enter goal target">
                     </div>
 
                     <div class="mb-3">
@@ -196,6 +202,20 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="goalType" class="form-label">Goal Type</label>
+                        <select class="form-select" id="goalType" name="GoalType">
+                            <option value="none">None</option>
+                            <option value="streak">Day Streak</option>
+                            <option value="count">Completion Count</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="goalTarget" class="form-label">Goal Target</label>
+                        <input type="number" class="form-control" id="goalTarget" name="GoalTarget" min="1" placeholder="Enter goal target">
+                    </div>
+
+                    <div class="mb-3">
                         <label for="newImageFile" class="form-label">Habit Image</label>
                         <input type="file" class="form-control" id="newImageFile" name="ImageFile"
                                accept="image/*" required>
@@ -219,101 +239,33 @@
 
 @section Scripts {
     <script>
-        var divs = document.getElementsByClassName("graphDiv");
-        var btns = document.getElementsByClassName("card-body-a");
-        var backBtn = document.getElementById("backBtn");
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownMenuBtn');
+            const dropdownItems = document.querySelectorAll('#statistics .dropdown-menu .dropdown-item');
 
-        function showHabitCompletion() {
-            var div = document.getElementById("habitcompletion");
-            if (div) {
-                div.classList.toggle("d-none");
+            if (dropdownItems.length > 0) {
+                dropdownButton.textContent = dropdownItems[0].textContent;
             }
-            checkGraphsAndHideButtons();
-        }
 
-        function showDayStreak() {
-            var div = document.getElementById("daystreak");
-            if (div) {
-                div.classList.toggle("d-none");
-            }
-            checkGraphsAndHideButtons();
-        }
-
-        function showGoalsAchieved() {
-            var div = document.getElementById("goalsachieved");
-            if (div) {
-                div.classList.toggle("d-none");
-            }
-            checkGraphsAndHideButtons();
-        }
-
-        function goBack() {
-            if (window.trendChart) {
-                trendChart.options.plugins.legend.labels.color = 'rgba(0,0,0,0)';
-                trendChart.options.scales.x.ticks.color = 'rgba(0,0,0,0)';
-                trendChart.options.scales.y.ticks.color = 'rgba(0,0,0,0)';
-
-                trendChart.data.datasets.forEach((dataset, index) => {
-                    dataset.borderColor = 'rgba(0,0,0,0)';
-                    dataset.backgroundColor = 'rgba(0,0,0,0)';
-                    dataset.pointRadius = 0;
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    dropdownButton.textContent = this.textContent;
                 });
+            });
+        });
 
-                trendChart.update({
-                    duration: 500,
-                    easing: 'easeOutQuad',
-                    animation: {
-                        duration: 500,
-                        easing: 'easeOutQuad'
-                    }
-                });
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const hideStatsCheckbox = document.getElementById('btncheck1');
+            const statisticsSection = document.getElementById('statistics');
 
-            setTimeout(() => {
-                for (var i = 0; i < divs.length; i++) {
-                    divs[i].classList.add("d-none");
-                }
-
-                for (var j = 0; j < btns.length; j++) {
-                    btns[j].classList.remove("d-none");
-                }
-
-                if (window.trendChart) {
-                    trendChart.options.plugins.legend.labels.color = 'black';
-                    trendChart.options.scales.x.ticks.color = 'black';
-                    trendChart.options.scales.y.ticks.color = 'black';
-
-                    trendChart.data.datasets.forEach((dataset, index) => {
-                        dataset.borderColor = index === 0
-                            ? '#8884d8'
-                            : `hsl(${index * 60}, 70%, 50%)`;
-                        dataset.backgroundColor = index === 0
-                            ? 'rgba(136, 132, 216, 0.1)'
-                            : `hsla(${index * 60}, 70%, 50%, 0.1)`;
-                        dataset.pointRadius = 4;
-                    });
-
-                    trendChart.update({ duration: 0 });
-                }
-            }, 500);
-        }
-
-        function checkGraphsAndHideButtons() {
-            var shouldHideButtons = false;
-            for (var i = 0; i < divs.length; i++) {
-                if (!divs[i].classList.contains("d-none")) {
-                    shouldHideButtons = true;
-                    break;
-                }
-            }
-
-            for (var j = 0; j < btns.length; j++) {
-                if (shouldHideButtons) {
-                    btns[j].classList.add("d-none");
+            hideStatsCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    statisticsSection.style.display = 'none';
                 } else {
-                    btns[j].classList.remove("d-none");
+                    statisticsSection.style.display = 'block';
                 }
-            }
-        }
+            });
+        });
     </script>
 }

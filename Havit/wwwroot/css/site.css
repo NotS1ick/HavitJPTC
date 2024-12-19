@@ -144,11 +144,14 @@ body {
 
 .typewriter-wrapper {
     display: inline-block;
+    width: 100%;
 }
 
+
 .typewriter-char {
-    display: inline-block;
+    display: inline;
     opacity: 0;
+    white-space: pre-wrap;
     transition: opacity 0.5s ease-in;
 }
 

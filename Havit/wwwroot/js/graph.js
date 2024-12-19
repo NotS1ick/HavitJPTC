@@ -1,297 +1,171 @@
-﻿let trendChart = null;
+﻿let currentChart;
 
-function initializeHabitCharts() {
-    if (typeof Chart === 'undefined') {
-        console.error('Chart.js is not loaded. Please check the script inclusion.');
-        return;
-    }
-
-    const trendCanvas = document.getElementById('habitTrendChart');
-
-    if (!trendCanvas) {
-        console.error('Could not find trend chart canvas element');
-        return;
-    }
-
-    const habits = getHabitsData();
-
+async function initializeCharts() {
     try {
-        const trendData = getDailyTrendData(habits);
-        const trendCtx = trendCanvas.getContext('2d');
-        trendChart = new Chart(trendCtx, {
-            type: 'line',
-            data: {
-                labels: trendData.dates,
-                datasets: [
-                    {
-                        label: 'Total Habits Completed',
-                        data: trendData.completions,
-                        borderColor: '#8884d8',
-                        backgroundColor: 'rgba(136, 132, 216, 0.1)',
-                        tension: 0.4,
-                        fill: true,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    },
-                    ...habits.map((habit, index) => ({
-                        label: habit.name,
-                        data: trendData.habitCompletions.map(dayData => dayData[index]),
-                        borderColor: `hsl(${index * 60}, 70%, 50%)`,
-                        backgroundColor: `hsla(${index * 60}, 70%, 50%, 0.1)`,
-                        tension: 0.4,
-                        fill: true,
-                        pointRadius: 4,
-                        pointHoverRadius: 6,
-                        hidden: true
-                    }))
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const count = context.raw;
-                                return `${count} habit${count !== 1 ? 's' : ''} completed`;
-                            }
-                        }
-                    },
-                    legend: {
-                        labels: {
-                            color: 'black'
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            color: 'black'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            maxRotation: 45,
-                            minRotation: 45,
-                            color: 'black'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        }
-                    }
-                },
-                animation: {
-                    duration: 1000,
-                    easing: 'easeOutQuad',
-                    animateScale: true,
-                    animateRotate: true
-                },
-                transitions: {
-                    show: {
-                        animations: {
-                            opacity: {
-                                from: 0,
-                                to: 1,
-                                duration: 500
-                            }
-                        }
-                    },
-                    hide: {
-                        animations: {
-                            opacity: {
-                                from: 1,
-                                to: 0,
-                                duration: 500
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        const response = await fetch('/HabitTracker/GetHabitChartData');
+        const chartData = await response.json();
+        
+        createGoalsChart(chartData);
+        
+        setupChartDropdown(chartData);
     } catch (error) {
-        console.error('Error creating trend chart:', error);
+        console.error('Error initializing charts:', error);
     }
 }
 
-function getHabitsData() {
-    return Array.from(document.querySelectorAll('.card')).filter(card => card.querySelector('.card-title'))
-        .map(card => {
-            const lastCompletedText = card.querySelector('.text-muted small:last-child')?.textContent;
-            const completeButton = card.querySelector('.complete-habit');
-            const isCompletedToday = completeButton?.classList.contains('disabled') || false;
-            let lastCompletedAt = null;
-
-            if (lastCompletedText) {
-                const dateMatch = lastCompletedText.match(/Last completed: (.+)/);
-                if (dateMatch) {
-                    lastCompletedAt = new Date(dateMatch[1]);
-                }
-            }
-
-            return {
-                name: card.querySelector('.card-title')?.textContent?.trim() || 'Unnamed',
-                timesComplete: 0,
-                lastCompletedAt: lastCompletedAt,
-                isCompletedToday: isCompletedToday
-            };
+function setupChartDropdown(chartData) {
+    const dropdownItems = document.querySelectorAll('#statistics .dropdown-menu .dropdown-item');
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const chartType = this.getAttribute('data-chart-type');
+            updateActiveChart(chartType, chartData);
+            
+            const dropdownButton = document.getElementById('dropdownMenuBtn');
+            dropdownButton.textContent = this.textContent;
         });
-}
-
-function getDailyTrendData(habits) {
-    const dailyCompletions = new Map();
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    for (let i = 6; i >= 0; i--) {
-        const date = new Date(today);
-        date.setDate(date.getDate() - i);
-        const dateKey = date.toLocaleDateString();
-        dailyCompletions.set(dateKey, habits.map(() => 0));
-    }
-
-    habits.forEach((habit, habitIndex) => {
-        if (habit.isCompletedToday) {
-            const todayKey = today.toLocaleDateString();
-            const habitData = dailyCompletions.get(todayKey);
-            habitData[habitIndex] += 1;
-            dailyCompletions.set(todayKey, habitData);
-        }
-
-        if (habit.lastCompletedAt) {
-            const completionDate = new Date(habit.lastCompletedAt);
-            completionDate.setHours(0, 0, 0, 0);
-
-            const dateKey = completionDate.toLocaleDateString();
-            if (dailyCompletions.has(dateKey)) {
-                const habitData = dailyCompletions.get(dateKey);
-                habitData[habitIndex] += 1;
-                dailyCompletions.set(dateKey, habitData);
-            }
-        }
     });
-
-    const dates = Array.from(dailyCompletions.keys());
-    const habitCompletions = Array.from(dailyCompletions.values());
-
-    const completions = habitCompletions.map(dayData =>
-        dayData.reduce((total, count) => total + count, 0)
-    );
-
-    return { dates, completions, habitCompletions };
 }
 
-function updateCharts() {
-    const habits = getHabitsData();
-    const trendData = getDailyTrendData(habits);
-
-    if (trendChart) {
-        // Fade out current datasets with a transition
-        trendChart.data.datasets.forEach((dataset, index) => {
-            // Create a copy of the dataset to animate out
-            const fadeOutDataset = {
-                ...dataset,
-                backgroundColor: index === 0
-                    ? 'rgba(136, 132, 216, 0)'
-                    : 'rgba(0,0,0,0)',
-                borderColor: index === 0
-                    ? 'rgba(136, 132, 216, 0)'
-                    : 'rgba(0,0,0,0)',
-                pointBackgroundColor: 'rgba(0,0,0,0)',
-                pointBorderColor: 'rgba(0,0,0,0)',
-            };
-
-            // Briefly replace the dataset with the faded out version
-            trendChart.data.datasets[index] = fadeOutDataset;
-        });
-
-        // Trigger a fade out animation
-        trendChart.update({
-            duration: 500,
-            easing: 'easeOutQuad'
-        });
-
-        // After fade out, update the chart with new data
-        setTimeout(() => {
-            trendChart.data.labels = trendData.dates;
-
-            // Reset the first dataset (total habits completed)
-            trendChart.data.datasets[0] = {
-                label: 'Total Habits Completed',
-                data: trendData.completions,
-                borderColor: '#8884d8',
-                backgroundColor: 'rgba(136, 132, 216, 0.1)',
-                tension: 0.4,
-                fill: true,
-                pointRadius: 4,
-                pointHoverRadius: 6
-            };
-
-            // Create and add new habit datasets
-            const habitDatasets = habits.map((habit, index) => ({
-                label: habit.name,
-                data: trendData.habitCompletions.map(dayData => dayData[index] || 0),
-                borderColor: `hsl(${index * 60}, 70%, 50%)`,
-                backgroundColor: `hsla(${index * 60}, 70%, 50%, 0.1)`,
-                tension: 0.4,
-                fill: true,
-                pointRadius: 4,
-                pointHoverRadius: 6,
-                hidden: true
-            }));
-
-            // Remove any outdated datasets and add new ones
-            trendChart.data.datasets.splice(1);
-            trendChart.data.datasets.push(...habitDatasets);
-
-            // Update with fade in animation
-            trendChart.update({
-                duration: 500,
-                easing: 'easeOutQuad'
-            });
-        }, 550); // Slightly longer than the fade out duration
+function createGoalsChart(chartData) {
+    if (currentChart) {
+        currentChart.destroy();
     }
+
+    const ctx = document.getElementById('goalProgressChart').getContext('2d');
+    currentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chartData.goalsLabels,
+            datasets: [{
+                label: 'Goal Progress',
+                data: chartData.goalsData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: getDefaultChartOptions('Goal Progress')
+    });
 }
 
-document.addEventListener('DOMContentLoaded', initializeHabitCharts);
+function createCompletionsChart(chartData) {
+    if (currentChart) {
+        currentChart.destroy();
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.complete-habit').forEach(button => {
-        button.addEventListener('click', async function(e) {
-            const habitId = this.dataset.habitId;
-            try {
-                const response = await fetch('/HabitTracker/CompleteHabit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                    },
-                    body: `id=${habitId}`
-                });
+    const ctx = document.getElementById('goalProgressChart').getContext('2d');
+    currentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chartData.completionLabels,
+            datasets: [{
+                label: 'Times Completed',
+                data: chartData.completionData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: getDefaultChartOptions('Habit Completions')
+    });
+}
 
-                if (response.ok) {
-                    const data = await response.json();
-                    const card = this.closest('.card');
-                    const lastCompletedElement = card.querySelector('.text-muted small:last-child');
-
-                    if (lastCompletedElement) {
-                        lastCompletedElement.textContent = `Last completed: ${data.lastCompletedAt}`;
+function getDefaultChartOptions(title) {
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: title,
+                font: {
+                    size: 16
+                }
+            },
+            legend: {
+                position: 'top',
+                labels: {
+                    padding: 10,
+                    font: {
+                        size: 12
                     }
-
-                    this.classList.add('disabled');
-                    this.disabled = true;
-                    this.innerHTML = '<i class="bi bi-check-circle-fill"></i> <span>Completed</span>';
-
-                    updateCharts();
                 }
-            } catch (error) {
-                console.error('Error completing habit:', error);
             }
-        });
-    });
-});
+        },
+        scales: {
+            x: {
+                grid: {
+                    drawBorder: false,
+                    color: 'rgba(200, 200, 200, 0.1)'
+                },
+                ticks: {
+                    font: {
+                        size: 11
+                    },
+                    maxRotation: 45,
+                    minRotation: 45
+                }
+            },
+            y: {
+                grid: {
+                    drawBorder: false,
+                    color: 'rgba(200, 200, 200, 0.1)'
+                },
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1,
+                    font: {
+                        size: 11
+                    }
+                }
+            }
+        }
+    };
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function updateActiveChart(chartType, chartData) {
+    switch(chartType) {
+        case 'goals':
+            createGoalsChart(chartData);
+            break;
+        case 'completions':
+            createCompletionsChart(chartData);
+            break;
+    }
+}
+
+async function refreshAllStats() {
+    try {
+        const response = await fetch('/HabitTracker/GetHabitChartData');
+        if (!response.ok) {
+            throw new Error('Failed to fetch chart data');
+        }
+        const chartData = await response.json();
+        
+        const dropdownButton = document.getElementById('dropdownMenuBtn');
+        const activeItem = document.querySelector('.dropdown-item.active');
+        if (activeItem) {
+            updateActiveChart(activeItem.getAttribute('data-chart-type'), chartData);
+        } else {
+            createGoalsChart(chartData);
+        }
+    } catch (error) {
+        console.error('Error updating charts:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initializeCharts);
+
+window.refreshAllStats = refreshAllStats;

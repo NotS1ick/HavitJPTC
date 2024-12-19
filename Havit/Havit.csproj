@@ -61,6 +61,21 @@
         <_ContentIncludedByDefault Remove="publish\publish\Havit.runtimeconfig.json"/>
         <_ContentIncludedByDefault Remove="publish\publish\Havit.staticwebassets.endpoints.json"/>
         <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-9ffd9151-cfe8-4e0a-9322-babf6c6e6cfc\4c281c42-c43f-463a-8094-c7cbe7211820_Designer.jpeg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-1a702a87-4dcc-42e8-9230-3e042c3c038d\12e44b41-87d8-4b94-bc9c-77ed00d61edd_Place (1).jpg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-1a702a87-4dcc-42e8-9230-3e042c3c038d\13d5033c-5fc0-4484-ac5e-8b4c9d0d01f3_image.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-1a702a87-4dcc-42e8-9230-3e042c3c038d\2eaaeb69-6038-4361-b9da-aea5e2d4b235_Designer.jpeg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-1a702a87-4dcc-42e8-9230-3e042c3c038d\82453413-2fc4-4ee6-9b72-6b4ee8b139f1_image.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-1a702a87-4dcc-42e8-9230-3e042c3c038d\b4e28810-f31f-4682-b2e1-e1abae0dde52_Designer.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-1a702a87-4dcc-42e8-9230-3e042c3c038d\d48b0e71-0780-4ed2-9871-046968bc1de9_favicon.ico" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-5cfa40b2-3085-4c57-899b-b1ec0f2c10e1\84301276-1505-4969-9bf9-129672ae758c_pedo.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-7f885d73-b7b6-43f0-a77b-581f908e972c\be9670ec-37e9-4004-895d-8ceb9aa03d79_Designer.jpeg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-7f885d73-b7b6-43f0-a77b-581f908e972c\c7ca2dd0-3763-4fe4-bc1f-2c54b62bdeaf_Place.jpg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-38b24263-0768-49f7-b8f0-08a1f415c641\513ac8a3-9cb6-4afd-a6a0-d7a3639a0350_Place.jpg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-ca0c8354-501f-4bad-89e6-93cc6fb5c21d\1229fa39-7c75-4710-981b-a91d36610ce9_The Shining (1).png" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-ca0c8354-501f-4bad-89e6-93cc6fb5c21d\1e38b401-9e34-4777-8ae6-6fa2bcb1ae58_pedo.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\admin-fb1c0fb4-524b-4286-b9f4-eee9bd77cede\86cf5d18-e21f-46bf-b02d-d2dca49793c4_Designer.jpeg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\user-370102f5-8774-4103-9268-533dff452a74\c8737a0e-96e1-4e25-9ea5-c2a20d288959_Designer.jpeg" />
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\user-f33c201f-7126-49dc-a610-93b1cd5a6cfb\d920c4ba-c567-41a4-b713-34198b15e28b_Designer.jpeg" />
     </ItemGroup>
 
 

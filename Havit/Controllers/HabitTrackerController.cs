@@ -8,6 +8,8 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+// 12/19/2024 Idk what I have done here anymore.
+
 namespace Havit.Controllers;
 
 [Authorize(Roles = "User,Admin")]
@@ -125,7 +127,10 @@ public class HabitTrackerController : Controller
                 Name = model.Name,
                 ImagePath = imagePath,
                 Frequency = model.Frequency,
-                TimesComplete = 0
+                GoalType = model.GoalType,
+                GoalTarget = model.GoalTarget,
+                TimesComplete = 0,
+                GoalProgress = 0
             };
 
             habits.Add(newHabit);
@@ -168,6 +173,8 @@ public class HabitTrackerController : Controller
 
             habit.Name = model.Name;
             habit.Frequency = model.Frequency;
+            habit.GoalType = model.GoalType;
+            habit.GoalTarget = model.GoalTarget;
 
             SaveHabitsToCookie(habits);
             return RedirectToAction(nameof(Index));
@@ -251,12 +258,17 @@ public class HabitTrackerController : Controller
 
             habit.TimesComplete++;
             habit.LastCompletedAt = DateTime.Now;
+            
+            if (habit.GoalType == "streak" || habit.GoalType == "count")
+                habit.GoalProgress++;
+            
             SaveHabitsToCookie(habits);
-
-            _logger.LogInformation($"Habit completed: {id}");
+            
             return Json(new { 
                 success = true, 
                 timesComplete = habit.TimesComplete,
+                goalProgress = habit.GoalProgress,
+                isGoalAchieved = habit.IsGoalAchieved,
                 lastCompletedAt = habit.LastCompletedAt?.ToString("MMM dd, yyyy")
             });
         }
@@ -310,11 +322,22 @@ public class HabitTrackerController : Controller
     {
         var cookieKey = GetUserSpecificCookieKey();
         var habitsJson = Request.Cookies[cookieKey];
+
         if (string.IsNullOrEmpty(habitsJson))
             return new List<HabitViewModel>();
-            
-        return JsonSerializer.Deserialize<List<HabitViewModel>>(habitsJson) ?? new List<HabitViewModel>();
+
+        try
+        {
+            return JsonSerializer.Deserialize<List<HabitViewModel>>(habitsJson) ?? new List<HabitViewModel>();
+        }
+        catch (JsonException ex)
+        {
+            _logger.LogError(ex, "Error deserializing habits JSON. Resetting habits to default.");
+            return new List<HabitViewModel>(); 
+        }
     }
+
+
 
     private void SaveHabitsToCookie(List<HabitViewModel> habits)
     {
@@ -325,12 +348,58 @@ public class HabitTrackerController : Controller
             Secure = true,
             SameSite = SameSiteMode.Strict
         };
-        
+
+        var serializedHabits = JsonSerializer.Serialize(habits);
+        _logger.LogDebug($"Saving habits JSON: {serializedHabits}");
         var cookieKey = GetUserSpecificCookieKey();
-        Response.Cookies.Append(cookieKey, JsonSerializer.Serialize(habits), options);
+        Response.Cookies.Append(cookieKey, serializedHabits, options);
     }
 
+    [HttpGet]
+    public IActionResult GetHabitChartData()
+    {
+        var habits = GetHabitsFromCookie();
+
+        // Completion data
+        var completionLabels = habits.Select(h => h.Name).ToList();
+        var completionData = habits.Select(h => h.TimesComplete).ToList();
+
+        // Goals data
+        var habitsWithAchievedGoals = habits.Where(h => h.GoalType != "none" && h.IsGoalAchieved).ToList();
+        var goalsLabels = habitsWithAchievedGoals.Select(h => h.Name).ToList();
+        var goalsData = habitsWithAchievedGoals.Select(h => h.GoalProgress).ToList();
+
+        return Json(new
+        {
+            completionLabels,
+            completionData,
+            goalsLabels,
+            goalsData
+        });
+    }
     
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ResetHabits()
+    {
+        var cookieKey = GetUserSpecificCookieKey();
+        Response.Cookies.Delete(cookieKey);
+
+        var habits = GetDefaultHabits().Select((habit, index) => new HabitViewModel
+        {
+            Id = $"habit{index}",
+            Name = habit.name,
+            ImagePath = habit.image,
+            Frequency = "daily",
+            GoalType = "none",
+            GoalTarget = 0,
+            GoalProgress = 0
+        }).ToList();
+
+        SaveHabitsToCookie(habits);
+        return RedirectToAction(nameof(Index));
+    }
     
     [HttpPost]
     [ValidateAntiForgeryToken]
