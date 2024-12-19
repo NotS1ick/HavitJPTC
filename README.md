@@ -1,6 +1,6 @@
 This is a project for a JPTC 2024 challenge.
 
-Hopfuly you can understand the code (because I don't understand it anymore).
+Hopefully you can understand the code (because I can't understand it anymore).
 
 <h1><b>How To Run It:<b/></h1>
 
